@@ -6,32 +6,51 @@ class App extends React.Component {
     constructor() {
         super();
 
-        this.state = { id: 28, isLoading: true }; // Apocalypse now ID
+        this.state = { id: 155, isLoading: true }; // IDs : 155, 278, 19404, 129, 124
     }
 
     getActors(cast) {
         let actors = [];
         for (let i = 0; i < 3; i++) {
-            actors.push({ role: "Actor", name: cast[i].name });
+            actors.push(cast[i].name);
         }
 
         return actors;
     }
 
-    getProd(crew) {
-        let prod = [];
+    getDirection(crew) {
+        let direction = [];
 
         crew.forEach(element => {
             if (
-                element.job === "Director" ||
-                element.job === "Producer" ||
-                element.job === "Writer"
+                element.department === "Directing" &&
+                element.job === "Director"
             ) {
-                prod.push({ role: element.job, name: element.name });
+                direction.push(element.name);
             }
         });
 
-        return prod;
+        return direction;
+    }
+
+    getWriting(crew) {
+        let writing = [];
+
+        crew.forEach(element => {
+            if (element.department === "Writing") {
+                writing.push(element.name);
+            }
+        });
+
+        let noDupes = writing.filter(
+            (element, index) => writing.indexOf(element) === index
+        );
+
+        if (noDupes.length > 3) {
+            noDupes.splice(3, noDupes.length - 3);
+        }
+
+        return noDupes;
     }
 
     async fetchAll(id) {
@@ -58,7 +77,8 @@ class App extends React.Component {
                 runtime: dataMovie.runtime,
                 score: dataMovie.vote_average,
                 cast: this.getActors(dataCrew.cast),
-                prod: this.getProd(dataCrew.crew),
+                direction: this.getDirection(dataCrew.crew),
+                writing: this.getWriting(dataCrew.crew),
                 genres: dataMovie.genres,
                 trailer_path: dataTrailer.results[0].key,
                 image_path: dataMovie.poster_path,
@@ -77,23 +97,21 @@ class App extends React.Component {
     }
 
     render() {
-        // let api_key = "7fdda1383403658b1323f3a67db3a801";
         let data = this.state;
         let isLoading = this.state.isLoading;
-        let error = this.state.error;
-
-        if (error) {
-            return <p>{error.message}</p>;
-        }
+        let background = `url(https://image.tmdb.org/t/p/original${data.background_path})`;
+        // document.body.setAttribute("background-image", background);
 
         if (isLoading) {
             return <p>loading ...</p>;
+        } else if (!isLoading) {
+            document.body.style.backgroundImage = background;
+            return (
+                <div className="container">
+                    <Card data={data} />
+                </div>
+            );
         }
-        return (
-            <div className="card">
-                <Card data={data} />
-            </div>
-        );
     }
 }
 

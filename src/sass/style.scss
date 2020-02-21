@@ -1,0 +1,141 @@
+.body {
+    background: cover;
+}
+
+.container {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.85) 15%,
+        rgba(0, 0, 0, 0.2) 40%,
+        rgba(0, 0, 0, 1) 90%
+    );
+
+    background-attachment: fixed;
+    margin: 0;
+    height: 100vh;
+
+    color: white;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.left-side {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    img {
+        margin: 2rem 2rem 0 2rem;
+        padding: auto;
+        width: 80%;
+    }
+    .figures {
+        display: flex;
+        justify-content: space-around;
+        p {
+            padding: 0 1rem;
+            &:first-of-type:before {
+                content: " \21BB";
+                color: rgba(255, 0, 0, 0.5);
+                padding: 0.5rem;
+            }
+            &:last-of-type:before {
+                content: " \2605";
+                color: rgba(255, 0, 0, 0.5);
+                padding: 0.5rem;
+            }
+            span {
+                color: rgba(255, 0, 0, 0.5);
+            }
+        }
+    }
+    a {
+        text-decoration: none;
+        margin: 0.5rem auto;
+        color: white;
+        border: 2px solid rgba(255, 0, 0, 0.5);
+        padding: 5px 10px;
+        height: fit-content;
+        &:hover {
+            border: 2px solid white;
+            color: rgba(255, 0, 0, 0.5);
+        }
+    }
+}
+
+.right-side {
+    h1 {
+        padding: 1rem 0 0 0;
+        margin: 1rem;
+    }
+    h3,
+    p {
+        margin: 1rem;
+    }
+}
+
+.list {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    li {
+        display: inline-block;
+        padding: 0 10px;
+    }
+}
+
+.genres {
+    padding: 0.5rem 0;
+    margin: 1rem 2rem;
+    li {
+        border-right: 2px solid rgba(255, 0, 0, 0.5);
+        &:last-of-type {
+            border: none;
+        }
+    }
+}
+
+.actors,
+.directors,
+.writers {
+    position: relative;
+    li {
+        &:first-of-type:before {
+            content: " ";
+        }
+        &:before {
+            position: relative;
+            left: -10px;
+            content: "-";
+            color: rgba(255, 0, 0, 0.8);
+        }
+    }
+}
+
+/* =============
+    Position
+============= */
+
+.container {
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    grid-template-rows: 20% 80%;
+    .card {
+        grid-column: 2/3;
+        grid-row: 2/3;
+    }
+}
+
+.card {
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    grid-template-areas: "left right right";
+    .left-side {
+        grid-area: left;
+    }
+    .right-side {
+        grid-area: right;
+    }
+}
