@@ -27,20 +27,8 @@ const Card = props => {
             <div className="left-side">
                 <img src={image} alt="this is a alt" />
                 <div className="figures">
+                    <p>{getDuration(data.runtime)}</p>
                     <p>
-                        {/* <img
-                            className="icon"
-                            src="img/clock.svg"
-                            alt="clock icon"
-                        /> */}
-                        {getDuration(data.runtime)}
-                    </p>
-                    <p>
-                        {/* <img
-                            className="icon"
-                            src="img/star.svg"
-                            alt="star icon"
-                        /> */}
                         {data.score} <span>/</span> 10
                     </p>
                 </div>
